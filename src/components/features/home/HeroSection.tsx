@@ -58,7 +58,7 @@ const HeroSection = () => {
 
   return (
     <section className="md:mt-0 p-3 aspect-3/4 md:aspect-video max-h-screen w-full">
-      <div className="relative h-full w-full rounded-t-3xl xl:rounded-t-2xl rounded-b-2xl md:rounded-b-3xl overflow-hidden">
+      <div className="relative h-full w-full rounded-t-4xl xl:rounded-t-2xl rounded-b-2xl md:rounded-b-3xl overflow-hidden">
         {youtubeEmbedUrl ? (
           <iframe
             title={topAnime?.data[0]?.title || "Anime"}

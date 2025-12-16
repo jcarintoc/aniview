@@ -12,8 +12,10 @@ import {
 } from "@/lib/utils/extractUrl";
 import { Star } from "lucide-react";
 import { truncateText } from "@/lib/utils/common";
+import { useNavigate } from "react-router-dom";
 
 interface AnimeCardProps {
+  mal_id: number;
   rating: number | null;
   anime_title: string;
   year: number | null;
@@ -23,6 +25,7 @@ interface AnimeCardProps {
 }
 
 const AnimeCard = ({
+  mal_id,
   rating,
   anime_title,
   year,
@@ -32,6 +35,7 @@ const AnimeCard = ({
 }: AnimeCardProps) => {
   const [isHovered, setIsHovered] = useState<boolean>(false);
   const [shouldLoadVideo, setShouldLoadVideo] = useState<boolean>(false);
+  const navigate = useNavigate();
   const hoverTimeoutRef = useRef<number | null>(null);
 
   const handleMouseEnter = () => {
@@ -59,6 +63,7 @@ const AnimeCard = ({
 
   return (
     <Card
+      onClick={() => navigate(`/anime/${mal_id}`)}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       className="relative flex flex-col justify-end gap-0 p-0 overflow-hidden aspect-3/4 group"

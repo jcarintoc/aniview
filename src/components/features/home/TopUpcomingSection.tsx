@@ -21,6 +21,7 @@ const TopUpcomingSection = () => {
           renderItem={(anime) => (
             <AnimeCard
               key={anime.title + anime.year}
+              mal_id={anime.mal_id}
               anime_title={anime.title}
               genre={anime.genres[0].name}
               rating={anime.score}
