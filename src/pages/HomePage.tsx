@@ -6,7 +6,7 @@ import TrendingSection from "@/components/features/home/TrendingSection";
 
 const HomePage = () => {
   return (
-    <main className="space-y-12">
+    <main className="space-y-2 sm:space-y-12">
       <HeroSection />
       <TrendingSection />
       <SeasonNowSection />
