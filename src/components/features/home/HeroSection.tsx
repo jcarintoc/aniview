@@ -2,6 +2,11 @@ import { useRef, useState } from "react";
 import { useTopAnime } from "@/query/useTop";
 import { Button } from "@/components/ui/button";
 import { Pause, Play, Volume2, VolumeX } from "lucide-react";
+import {
+  getYouTubeVideoId,
+  buildYouTubeEmbedUrl,
+  sendYouTubeCommand,
+} from "@/lib/utils/extractUrl";
 
 const HeroSection = () => {
   const { data: topAnime } = useTopAnime({
@@ -14,49 +19,27 @@ const HeroSection = () => {
   const [isPlaying, setIsPlaying] = useState<boolean>(true);
   const [isMuted, setIsMuted] = useState<boolean>(true);
 
-  // Extract YouTube video ID from embed_url
-  const getYouTubeVideoId = (embedUrl: string | null): string | null => {
-    if (!embedUrl) return null;
-    const match = embedUrl.match(/\/embed\/([^?]+)/);
-    return match ? match[1] : null;
-  };
+  const videoId = getYouTubeVideoId(
+    topAnime?.data[0]?.trailer?.embed_url ?? ""
+  );
+  const youtubeEmbedUrl = buildYouTubeEmbedUrl(videoId, {
+    autoplay: true,
+    mute: true,
+    loop: true,
+    controls: false,
+    enablejsapi: true,
+  });
 
-  const videoId = topAnime?.data[0]?.trailer?.embed_url
-    ? getYouTubeVideoId(topAnime.data[0].trailer.embed_url)
-    : null;
-
-  // Construct YouTube embed URL with autoplay, mute, loop, and JS API enabled
-  const youtubeEmbedUrl = videoId
-    ? `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&modestbranding=1&rel=0&showinfo=0&iv_load_policy=3&playsinline=1&enablejsapi=1`
-    : null;
-
-  // Fallback to image if no video available
   const fallbackImage = topAnime?.data[0]?.images?.webp?.large_image_url;
-
-  const sendPlayerCommand = (
-    command: "playVideo" | "pauseVideo" | "mute" | "unMute"
-  ) => {
-    const iframe = iframeRef.current;
-    if (!iframe || !iframe.contentWindow) return;
-
-    iframe.contentWindow.postMessage(
-      JSON.stringify({
-        event: "command",
-        func: command,
-        args: [],
-      }),
-      "*"
-    );
-  };
 
   const handleTogglePlay = () => {
     if (!youtubeEmbedUrl) return;
 
     if (isPlaying) {
-      sendPlayerCommand("pauseVideo");
+      sendYouTubeCommand(iframeRef.current, "pauseVideo");
       setIsPlaying(false);
     } else {
-      sendPlayerCommand("playVideo");
+      sendYouTubeCommand(iframeRef.current, "playVideo");
       setIsPlaying(true);
     }
   };
@@ -65,10 +48,10 @@ const HeroSection = () => {
     if (!youtubeEmbedUrl) return;
 
     if (isMuted) {
-      sendPlayerCommand("unMute");
+      sendYouTubeCommand(iframeRef.current, "unMute");
       setIsMuted(false);
     } else {
-      sendPlayerCommand("mute");
+      sendYouTubeCommand(iframeRef.current, "mute");
       setIsMuted(true);
     }
   };
@@ -78,6 +61,7 @@ const HeroSection = () => {
       <div className="relative h-full w-full rounded-t-3xl xl:rounded-t-2xl rounded-b-2xl md:rounded-b-3xl overflow-hidden">
         {youtubeEmbedUrl ? (
           <iframe
+            title={topAnime?.data[0]?.title || "Anime"}
             ref={iframeRef}
             src={youtubeEmbedUrl}
             className="absolute top-0 left-0 w-full h-full object-cover pointer-events-none scale-245 md:scale-120"
