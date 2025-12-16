@@ -1,4 +1,3 @@
-import { Card, CardContent } from "@/components/ui/card";
 import {
   Carousel,
   CarouselContent,
@@ -7,33 +6,80 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import ViewMoreButton from "./ui/view-more-button";
-import type { LucideIcon } from "lucide-react";
+import { type LucideIcon, CircleX } from "lucide-react";
+import type { ReactNode } from "react";
+import { cn } from "@/lib/utils";
+import { Alert, AlertTitle } from "./ui/alert";
+import { useNavigate } from "react-router-dom";
+import { Skeleton } from "./ui/skeleton";
 
-const CarouselImage = ({ sectionTitle, Icon }: { sectionTitle: string, Icon?: LucideIcon }) => {
+interface CarouselImageProps<T> {
+  sectionTitle: string;
+  Icon?: LucideIcon;
+  data: T[];
+  isLoading: boolean;
+  renderItem: (item: T, index: number) => ReactNode;
+  path: string;
+  itemClassName?: string;
+  keyExtractor?: (item: T, index: number) => string | number;
+}
+
+const CarouselImage = <T,>({
+  sectionTitle,
+  Icon,
+  data,
+  isLoading,
+  renderItem,
+  path,
+  itemClassName,
+  keyExtractor,
+}: CarouselImageProps<T>) => {
+  const navigate = useNavigate();
+
   return (
     <Carousel className="w-full space-y-3">
       <div className="flex items-center justify-between px-2">
         <div className="flex items-center gap-2">
           {Icon && <Icon className="size-6" />}
-          <h1 className="font-secondary text-xl">{sectionTitle}</h1>
+          <h1 className="font-secondary text-lg sm:text-xl">{sectionTitle}</h1>
         </div>
-        <ViewMoreButton>View more</ViewMoreButton>
+        {path && (
+          <ViewMoreButton onClick={() => navigate(path)}>
+            View more
+          </ViewMoreButton>
+        )}
       </div>
       <CarouselContent className="-ml-1">
-        {Array.from({ length: 10 }).map((_, index) => (
-          <CarouselItem
-            key={index}
-            className="pl-1 basis-1/3 lg:basis-1/5 xl:basis-1/7"
-          >
-            <div className="p-1">
-              <Card>
-                <CardContent className="flex aspect-square items-center justify-center p-6">
-                  <span className="text-2xl font-semibold">{index + 1}</span>
-                </CardContent>
-              </Card>
-            </div>
-          </CarouselItem>
-        ))}
+        {isLoading ? (
+          Array.from({ length: 10 }).map((_, index) => (
+            <CarouselItem
+              key={index}
+              className={cn(
+                "pl-1 basis-1/2 sm:basis-1/3 lg:basis-1/5 xl:basis-1/7",
+                itemClassName
+              )}
+            >
+              <Skeleton className="aspect-3/4 ml-3 rounded-2xl" />
+            </CarouselItem>
+          ))
+        ) : data && data.length > 0 ? (
+          data.map((item, index) => (
+            <CarouselItem
+              key={keyExtractor ? keyExtractor(item, index) : index}
+              className={cn(
+                "pl-1 basis-1/2 sm:basis-1/3 lg:basis-1/5 xl:basis-1/7",
+                itemClassName
+              )}
+            >
+              <div className="p-1">{renderItem(item, index)}</div>
+            </CarouselItem>
+          ))
+        ) : (
+          <Alert variant={"destructive"} className="w-full sm:w-72 ml-3">
+            <CircleX />
+            <AlertTitle>No item to display</AlertTitle>
+          </Alert>
+        )}
       </CarouselContent>
       <div className="flex items-center justify-end gap-2 mt-6 px-2">
         <CarouselPrevious className="static" />
