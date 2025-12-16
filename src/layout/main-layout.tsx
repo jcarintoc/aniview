@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 
 const MainLayout = () => {
   return (
-    <div>
+    <div className="space-y-4">
       <Navbar />
       <Outlet />
     </div>
