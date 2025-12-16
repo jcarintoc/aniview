@@ -14,7 +14,7 @@ const Navbar = () => {
     );
 
   return (
-    <header className="z-999 absolute top-5 left-1/2 -translate-x-1/2 w-full xl:w-7xl px-5">
+    <header className="z-999 absolute top-3 md:top-5 left-1/2 -translate-x-1/2 w-full xl:w-7xl px-3 md:px-5">
       <div className="flex items-center justify-between gap-4 py-2 px-2 bg-black/50 backdrop-blur-sm rounded-full shadow">
         <div className="flex items-center gap-3 md:gap-8">
           <NavSheet>
