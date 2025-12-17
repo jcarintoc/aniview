@@ -1,6 +1,7 @@
 import { lazy, Suspense, useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import type { Anime } from "@/type/top";
+import { Skeleton } from "@/components/ui/skeleton";
 
 // Lazy load tab components - they'll only be loaded when needed
 const OverviewTab = lazy(
@@ -41,17 +42,17 @@ const tabs = [
 
 // Loading fallback component
 const TabLoadingFallback = () => (
-  <div className="p-4 flex items-center justify-center min-h-[200px]">
-    <div>Loading...</div>
-  </div>
+  <Skeleton className="p-4 flex items-center rounded-2xl justify-center min-h-[300px]" />
 );
 
 const AnimeTabs = ({
   animeId,
   animeData,
+  isLoading,
 }: {
   animeId: string;
   animeData: Anime;
+  isLoading: boolean;
 }) => {
   const [activeTab, setActiveTab] = useState("overview");
 
@@ -78,7 +79,7 @@ const AnimeTabs = ({
           <TabsContent key={tab.value} value={tab.value}>
             {activeTab === tab.value && (
               <Suspense fallback={<TabLoadingFallback />}>
-                <LazyTabComponent animeId={animeId} animeData={animeData} />
+                <LazyTabComponent animeId={animeId} animeData={animeData} isLoading={isLoading} />
               </Suspense>
             )}
           </TabsContent>
