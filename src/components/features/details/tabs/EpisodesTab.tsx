@@ -4,6 +4,7 @@ import TabsHeader from "../TabsHeader";
 import { Link } from "lucide-react";
 import { useAnimeEpisodes } from "@/query/useAnime";
 import { ClientPagination } from "@/components/ui/client-pagination";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const EpisodesTab = ({ animeId }: { animeId: string }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -14,7 +15,18 @@ const EpisodesTab = ({ animeId }: { animeId: string }) => {
   };
 
   if (isLoading) {
-    return <div>Loading episodes...</div>;
+    return (
+      <div className="flex flex-col sm:flex-row gap-8 p-4">
+        <Skeleton className="hidden sm:block sticky top-32 w-18 h-96" />
+        <div className="w-full flex flex-col gap-2">
+          {Array.from({ length: 24 }).map((_, index) => (
+            <div key={index} className="flex flex-col gap-2">
+              <Skeleton className="w-full h-32 sm:h-20 rounded-2xl" />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
   }
 
   if (!episodes || episodes.data.length === 0) {
@@ -35,9 +47,7 @@ const EpisodesTab = ({ animeId }: { animeId: string }) => {
                 className={`flex sm:flex-row flex-col gap-4 first:border-t last:border-b-0 border-b border-x-transparent w-full p-2 hover:bg-card/50 group`}
               >
                 <div className="p-0 sm:p-4 sm:bg-card rounded-md sm:aspect-video w-fit sm:w-32 text-2xl font-secondary flex items-center justify-center shadow-lg group-hover:sm:bg-primary">
-                  <h1 className="">
-                    {episode.mal_id}
-                  </h1>
+                  <h1 ><span className="sm:hidden">Episode </span>{episode.mal_id}</h1>
                 </div>
                 <div className="flex flex-col justify-between gap-2 py-1">
                   <h2 className="inline-flex flex-wrap items-center gap-2 sm:text-base text-sm">

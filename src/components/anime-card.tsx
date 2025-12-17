@@ -103,7 +103,7 @@ const AnimeCard = ({
       <div className="absolute inset-0 bg-linear-to-t from-black via-black/20 to-transparent pointer-events-none" />
 
       <CardFooter className="z-10 p-3 flex flex-col items-start gap-1">
-        <CardTitle className="text-sm">
+        <CardTitle className="text-sm cursor-pointer">
           {truncateText(anime_title, 30)}
         </CardTitle>
         <CardDescription>

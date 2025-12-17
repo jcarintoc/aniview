@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Heart } from "lucide-react";
 import { formatNumber } from "@/lib/utils/common";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const CharactersTab = ({ animeId }: { animeId: string }) => {
   const { data: characters, isLoading } = useAnimeCharacters(animeId);
@@ -20,7 +21,23 @@ const CharactersTab = ({ animeId }: { animeId: string }) => {
   });
 
   if (isLoading) {
-    return <div>Loading characters...</div>;
+    return (
+      <div className="flex flex-col sm:flex-row gap-8 p-4">
+        <Skeleton className="hidden sm:block sticky top-32 w-18 h-96" />
+        <div className="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-x-4 gap-y-8">
+          {Array.from({ length: 24 }).map((_, index) => (
+            <div key={index} className="flex flex-col gap-2">
+              <Skeleton className="aspect-3/4 w-full rounded-2xl" />
+              <div className="flex items-center -space-x-1.5">
+                <Skeleton className="w-6 h-6 rounded-full" />
+                <Skeleton className="w-6 h-6 rounded-full" />
+                <Skeleton className="w-6 h-6 rounded-full" />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
   }
 
   if (!characters || characters.data.length === 0) {
@@ -29,9 +46,7 @@ const CharactersTab = ({ animeId }: { animeId: string }) => {
 
   return (
     <div className="p-4 flex sm:flex-row flex-col items-center sm:items-start sm:gap-8">
-      <TabsHeader className="sticky top-32">
-        Characters
-      </TabsHeader>
+      <TabsHeader className="sticky top-32">Characters</TabsHeader>
       <div className="flex-1 flex flex-col gap-6">
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-x-4 gap-y-8">
           {paginatedCharacters.map((character) => (

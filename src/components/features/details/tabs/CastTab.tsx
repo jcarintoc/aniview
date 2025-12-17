@@ -8,6 +8,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { usePagination } from "@/hooks/usePagination";
 import { ClientPagination } from "@/components/ui/client-pagination";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const CastTab = ({ animeId }: { animeId: string }) => {
   const { data: staff, isLoading } = useAnimeStaff(animeId);
@@ -22,7 +23,18 @@ const CastTab = ({ animeId }: { animeId: string }) => {
   });
 
   if (isLoading) {
-    return <div>Loading staff...</div>;
+    return (
+      <div className="flex flex-col sm:flex-row gap-8 p-4">
+        <Skeleton className="hidden sm:block sticky top-32 w-18 h-96" />
+        <div className="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+          {Array.from({ length: 24 }).map((_, index) => (
+            <div key={index} className="flex flex-col gap-2">
+              <Skeleton className="aspect-3/4 w-full rounded-2xl" />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
   }
 
   if (!staff || staff.data.length === 0) {
@@ -32,8 +44,8 @@ const CastTab = ({ animeId }: { animeId: string }) => {
   return (
     <div className="p-4 flex sm:flex-row flex-col items-center sm:items-start sm:gap-8">
       <TabsHeader className="sticky top-32">Cast</TabsHeader>
-      <div className="space-y-4">
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+      <div className="space-y-4 w-full">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 w-full">
           {paginatedStaff.map((staff) => (
             <HoverCard key={staff.person.mal_id}>
               <HoverCardTrigger>

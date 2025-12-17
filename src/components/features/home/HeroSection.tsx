@@ -7,9 +7,10 @@ import {
   buildYouTubeEmbedUrl,
   sendYouTubeCommand,
 } from "@/lib/utils/extractUrl";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const HeroSection = () => {
-  const { data: topAnime } = useTopAnime({
+  const { data: topAnime, isLoading } = useTopAnime({
     limit: 1,
     filter: "airing",
     type: "tv",
@@ -55,6 +56,31 @@ const HeroSection = () => {
       setIsMuted(true);
     }
   };
+
+  if (isLoading) {
+    return (
+      <div className="md:mt-0 p-3 aspect-3/4 md:aspect-video max-h-screen w-full">
+        <div className="relative h-full w-full rounded-t-4xl xl:rounded-t-2xl rounded-b-2xl md:rounded-b-3xl overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-full bg-black" />
+
+          <div className="z-10 absolute bottom-4 left-4 md:bottom-6 md:left-6 xl:bottom-12 xl:left-12 w-3/4 xl:w-1/3 space-y-2 md:space-y-4">
+            <Skeleton className="w-20 md:w-28 xl:w-40 h-full aspect-3/4 object-cover rounded-lg shadow-lg mb-4 xl:mb-8" />
+            <Skeleton className="w-1/2 sm:w-72 h-8 sm:h-12" />
+            <div className="space-y-2 w-full">
+              <Skeleton className="w-full h-4" />
+              <Skeleton className="w-full h-4" />
+              <Skeleton className="w-3/4 h-4" />
+            </div>
+
+            <div className="flex items-center gap-2">
+              <Skeleton className="w-6 h-6 sm:w-10 sm:h-10 rounded-full" />
+              <Skeleton className="w-6 h-6 sm:w-10 sm:h-10 rounded-full" />
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <section className="md:mt-0 p-3 aspect-3/4 md:aspect-video max-h-screen w-full">

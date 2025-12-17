@@ -6,12 +6,14 @@ import {
   getYouTubeVideoId,
 } from "@/lib/utils/extractUrl";
 import NoImage from "@/assets/no-image.png";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface DetailHeaderProps {
   anime_image: string;
   trailer_url: string | null;
   anime_title: string;
   rating: number | null;
+  isLoading: boolean;
 }
 
 const DetailHeader = ({
@@ -19,6 +21,7 @@ const DetailHeader = ({
   trailer_url,
   anime_title,
   rating,
+  isLoading,
 }: DetailHeaderProps) => {
   const videoId = getYouTubeVideoId(trailer_url ?? "");
 
@@ -33,6 +36,18 @@ const DetailHeader = ({
   const onTrailerClick = () => {
     window.open(youtubeEmbedUrl ?? "", "_blank");
   };
+
+  if (isLoading)
+    return (
+      <div className="relative max-w-7xl mx-auto px-2">
+        <Skeleton className="mt-2.5 h-72 rounded-4xl" />
+        <div className="relative -top-20 flex flex-col gap-4 items-center justify-center">
+          <Skeleton className="w-40 aspect-3/4" />
+          <Skeleton className="w-72 h-8" />
+          <Skeleton className="w-20 h-8" />
+        </div>
+      </div>
+    );
 
   return (
     <section>
