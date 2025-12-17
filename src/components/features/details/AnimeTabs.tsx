@@ -42,7 +42,9 @@ const tabs = [
 
 // Loading fallback component
 const TabLoadingFallback = () => (
-  <Skeleton className="p-4 flex items-center rounded-2xl justify-center min-h-[300px]" />
+  <div className="p-4">
+    <Skeleton className="flex items-center rounded-2xl justify-center min-h-[300px]" />
+  </div>
 );
 
 const AnimeTabs = ({
@@ -79,7 +81,11 @@ const AnimeTabs = ({
           <TabsContent key={tab.value} value={tab.value}>
             {activeTab === tab.value && (
               <Suspense fallback={<TabLoadingFallback />}>
-                <LazyTabComponent animeId={animeId} animeData={animeData} isLoading={isLoading} />
+                <LazyTabComponent
+                  animeId={animeId}
+                  animeData={animeData}
+                  isLoading={isLoading}
+                />
               </Suspense>
             )}
           </TabsContent>
