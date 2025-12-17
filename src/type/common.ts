@@ -87,3 +87,21 @@ export interface MalEntity {
   name: string;
   url: string;
 }
+
+export interface Person {
+  mal_id: number;
+  url: string;
+  images: {
+    jpg: Jpeg;
+  };
+  name: string;
+}
+
+export interface VoiceActor {
+  person: Person;
+  language: string;
+}
+
+export interface Jpeg {
+  image_url: string;
+}

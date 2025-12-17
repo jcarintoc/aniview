@@ -11,23 +11,23 @@
 }
 
 :root {
-  --background: oklch(0.1776 0 0);
+  --background: oklch(0.1591 0 0);
   --foreground: oklch(1.0000 0 0);
-  --card: oklch(0.2478 0 0);
+  --card: oklch(0.2046 0 0);
   --card-foreground: oklch(1.0000 0 0);
-  --popover: oklch(0.1776 0 0);
+  --popover: oklch(0.1591 0 0);
   --popover-foreground: oklch(1.0000 0 0);
   --primary: oklch(0.5110 0.2620 276.9660);
   --primary-foreground: oklch(0.9710 0.0130 17.3800);
-  --secondary: oklch(0.1776 0 0);
+  --secondary: oklch(0.1591 0 0);
   --secondary-foreground: oklch(1.0000 0 0);
-  --muted: oklch(0.1776 0 0);
+  --muted: oklch(0.1591 0 0);
   --muted-foreground: oklch(0.7316 0 0);
   --accent: oklch(0.2520 0 0);
   --accent-foreground: oklch(0.5850 0.2330 277.1170);
   --destructive: oklch(0.6290 0.1902 23.0704);
   --destructive-foreground: oklch(1.0000 0 0);
-  --border: oklch(0.3211 0 0);
+  --border: oklch(0.2645 0 0);
   --input: oklch(0.5555 0 0);
   --ring: oklch(0.2570 0.0900 281.2880);
   --chart-1: oklch(0.7459 0.1483 156.4499);
@@ -189,4 +189,9 @@ body {
   body {
     @apply bg-background text-foreground font-default;
   }
+}
+
+.writing-mode-vertical {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
 }

@@ -80,7 +80,7 @@ const AnimeCard = ({
         )}
       </div>
 
-      <CardContent className="absolute inset-0 w-full h-full p-0 group-hover:opacity-0 duration-500">
+      <CardContent className="absolute inset-0 w-full h-full p-0 group-hover:opacity-0 group-hover:scale-120 duration-500">
         <img
           src={image_url}
           alt={anime_title}
