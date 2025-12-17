@@ -5,6 +5,7 @@ import {
   buildYouTubeEmbedUrl,
   getYouTubeVideoId,
 } from "@/lib/utils/extractUrl";
+import NoImage from "@/assets/no-image.png";
 
 interface DetailHeaderProps {
   anime_image: string;
@@ -36,9 +37,9 @@ const DetailHeader = ({
   return (
     <section>
       <div className="relative max-w-7xl mx-auto px-2">
-        <div className="relative h-72 w-full overflow-hidden rounded-4xl mt-2.5">
+        <div className="relative h-72 w-full overflow-hidden rounded-4xl mt-2.5 shadow-xl">
           <img
-            src={anime_image}
+            src={anime_image === "" ? NoImage : anime_image}
             alt="image"
             className="w-full h-full object-cover object-top"
           />
@@ -61,7 +62,7 @@ const DetailHeader = ({
         <div className="relative -top-20 flex flex-col items-center justify-center gap-4 ">
           <Card className="p-0 w-fit overflow-hidden border-none shadow-lg">
             <img
-              src={anime_image}
+              src={anime_image === "" ? NoImage : anime_image}
               alt="Anime Image"
               className="w-40 aspect-3/4 object-cover"
             />
@@ -72,8 +73,14 @@ const DetailHeader = ({
               {anime_title}
             </h1>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-yellow-300 text-black font-semibold">
-              <Star className="size-4" />
-              <span>{rating}</span>
+              {rating ? (
+                <>
+                  <Star className="size-4" />
+                  <span>{rating}</span>
+                </>
+              ) : (
+                "N/A"
+              )}
             </div>
           </div>
         </div>

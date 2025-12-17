@@ -1,0 +1,83 @@
+import { useAnimeStaff } from "@/query/useStaff";
+import TabsHeader from "../TabsHeader";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
+import { Badge } from "@/components/ui/badge";
+import { usePagination } from "@/hooks/usePagination";
+import { ClientPagination } from "@/components/ui/client-pagination";
+
+const CastTab = ({ animeId }: { animeId: string }) => {
+  const { data: staff, isLoading } = useAnimeStaff(animeId);
+
+  const {
+    paginatedData: paginatedStaff,
+    currentPage,
+    totalPages,
+    setCurrentPage,
+  } = usePagination({
+    data: staff?.data ?? [],
+  });
+
+  if (isLoading) {
+    return <div>Loading staff...</div>;
+  }
+
+  if (!staff || staff.data.length === 0) {
+    return <div>No staff found</div>;
+  }
+
+  return (
+    <div className="p-4 flex sm:flex-row flex-col items-center sm:items-start sm:gap-8">
+      <TabsHeader className="sticky top-32">Cast</TabsHeader>
+      <div className="space-y-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+          {paginatedStaff.map((staff) => (
+            <HoverCard key={staff.person.mal_id}>
+              <HoverCardTrigger>
+                <div className="relative flex flex-col justify-end overflow-hidden rounded-2xl group border aspect-3/4 p-2 hover:ring-2 ring-primary">
+                  <span className="z-10 text-sm font-semibold pl-1 pb-1">
+                    {staff.person.name}
+                  </span>
+
+                  <img
+                    src={staff.person.images.jpg.image_url}
+                    alt={staff.person.name}
+                    className="absolute inset-0 h-full w-full object-cover scale-130 group-hover:scale-110 duration-200"
+                  />
+
+                  <div className="absolute inset-0 bg-linear-to-t from-black/75 group-hover:from-black via-black/20 to-transparent pointer-events-none" />
+                </div>
+              </HoverCardTrigger>
+
+              <HoverCardContent
+                align="center"
+                side="right"
+                sideOffset={10}
+                className="w-64"
+              >
+                <div className="flex flex-wrap gap-2">
+                  {staff.positions.map((position) => (
+                    <Badge key={position} className="text-sm">
+                      {position}
+                    </Badge>
+                  ))}
+                </div>
+              </HoverCardContent>
+            </HoverCard>
+          ))}
+        </div>
+
+        <ClientPagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+        />
+      </div>
+    </div>
+  );
+};
+
+export default CastTab;
