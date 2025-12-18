@@ -7,6 +7,7 @@ import { Heart } from "lucide-react";
 import { formatNumber } from "@/lib/utils/common";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Skeleton } from "@/components/ui/skeleton";
+import EmptyState from "@/components/empty-state";
 
 const CharactersTab = ({ animeId }: { animeId: string }) => {
   const { data: characters, isLoading } = useAnimeCharacters(animeId);
@@ -41,7 +42,7 @@ const CharactersTab = ({ animeId }: { animeId: string }) => {
   }
 
   if (!characters || characters.data.length === 0) {
-    return <div>No characters found</div>;
+    return <EmptyState className="mt-8" title="No characters found"/>;
   }
 
   return (

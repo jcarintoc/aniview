@@ -9,7 +9,8 @@ import { Badge } from "@/components/ui/badge";
 import { usePagination } from "@/hooks/usePagination";
 import { ClientPagination } from "@/components/ui/client-pagination";
 import { Skeleton } from "@/components/ui/skeleton";
-
+import EmptyState from "@/components/empty-state";
+  
 const CastTab = ({ animeId }: { animeId: string }) => {
   const { data: staff, isLoading } = useAnimeStaff(animeId);
 
@@ -38,7 +39,7 @@ const CastTab = ({ animeId }: { animeId: string }) => {
   }
 
   if (!staff || staff.data.length === 0) {
-    return <div>No staff found</div>;
+    return <EmptyState className="mt-8" title="No staff found"/>;
   }
 
   return (

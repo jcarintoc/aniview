@@ -1,6 +1,7 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import TabsHeader from "../TabsHeader";
 import type { Anime } from "@/type/top";
+import EmptyState from "@/components/empty-state";
 
 interface OverviewTabProps {
   animeData: Anime;
@@ -22,6 +23,9 @@ const OverviewTab = ({ animeData, isLoading }: OverviewTabProps) => {
       </div>
     );
   }
+
+  if (!animeData.synopsis && !animeData.background)
+    return <EmptyState className="mt-8" title="No overview data found"/>;
 
   return (
     <div className=" p-4 flex items-start gap-8">
