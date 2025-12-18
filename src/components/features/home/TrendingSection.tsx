@@ -13,7 +13,7 @@ const TrendingSection = () => {
   return (
     <section className="max-w-7xl mx-auto p-3 xl:p-0">
       <CarouselImage
-        sectionTitle="Season Now"
+        sectionTitle="Trending"
         Icon={Flame}
         data={topAnime?.data ?? []}
         isLoading={isLoading}
