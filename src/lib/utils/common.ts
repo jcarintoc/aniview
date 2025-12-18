@@ -12,3 +12,8 @@ export const formatNumber = (number: number): string => {
     return number.toString();
   }
 };
+
+export const formatDate = (date?: Date) => {
+  if (!date) return "";
+  return date.toISOString().split("T")[0]; // YYYY-MM-DD
+};
