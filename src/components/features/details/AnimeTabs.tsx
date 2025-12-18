@@ -65,10 +65,10 @@ const AnimeTabs = ({
       defaultValue="overview"
       className="max-w-7xl mx-auto space-y-4"
     >
-      <div className="flex items-start justify-center">
-        <TabsList className="font-secondary">
+      <div className="flex items-start justify-center p-4 w-full">
+        <TabsList className="font-secondary flex-col sm:flex-row sm:h-auto h-fit w-full sm:w-fit">
           {tabs.map((tab) => (
-            <TabsTrigger key={tab.value} value={tab.value}>
+            <TabsTrigger key={tab.value} value={tab.value} className="w-full sm:w-fit py-2 sm:py-1 text-base sm:text-sm">
               {tab.label}
             </TabsTrigger>
           ))}

@@ -5,15 +5,25 @@ import AnimeTabs from "@/components/features/details/AnimeTabs";
 import PageSpinner from "@/components/page-spinner";
 import AnimeNotFound from "@/components/anime-not-found";
 import Recommended from "@/components/features/details/Recommended";
+import ErrorState from "@/components/error-state";
 
 const AnimeDetailsPage = () => {
   const { id } = useParams<{ id: string }>();
-  const { data: anime, isLoading, isPending } = useAnimeById(id);
+  const {
+    data: anime,
+    isLoading,
+    isPending,
+    refetch,
+    isError,
+    isFetching
+  } = useAnimeById(id);
   const animeDetails = anime && anime.data;
 
   if (isPending) return <PageSpinner />;
 
   if (!animeDetails) return <AnimeNotFound />;
+
+  if (isError) return <ErrorState refetch={refetch} isFetching={isFetching} />;
 
   return (
     <main>

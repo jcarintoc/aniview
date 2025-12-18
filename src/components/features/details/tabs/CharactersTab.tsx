@@ -7,6 +7,7 @@ import { Heart } from "lucide-react";
 import { formatNumber } from "@/lib/utils/common";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Skeleton } from "@/components/ui/skeleton";
+import EmptyState from "@/components/empty-state";
 
 const CharactersTab = ({ animeId }: { animeId: string }) => {
   const { data: characters, isLoading } = useAnimeCharacters(animeId);
@@ -41,20 +42,20 @@ const CharactersTab = ({ animeId }: { animeId: string }) => {
   }
 
   if (!characters || characters.data.length === 0) {
-    return <div>No characters found</div>;
+    return <EmptyState className="mt-8" title="No characters found"/>;
   }
 
   return (
     <div className="p-4 flex sm:flex-row flex-col items-center sm:items-start sm:gap-8">
       <TabsHeader className="sticky top-32">Characters</TabsHeader>
       <div className="flex-1 flex flex-col gap-6">
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-x-4 gap-y-8">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-x-4 gap-y-8 w-full">
           {paginatedCharacters.map((character) => (
             <div
               key={character.character.mal_id}
-              className="flex flex-col gap-2"
+              className="flex flex-col gap-2 w-[41vw] sm:w-full"
             >
-              <div className="relative flex flex-col justify-between overflow-hidden rounded-2xl group border aspect-3/4 p-2 hover:ring-2 ring-primary">
+              <div className="relative flex flex-col justify-between overflow-hidden rounded-2xl group border aspect-3/4 p-2 hover:ring-2 ring-primary w-full">
                 <Badge variant={"destructive"} className="z-10 shadow-md">
                   <Heart /> {formatNumber(character.favorites)}
                 </Badge>
@@ -65,7 +66,7 @@ const CharactersTab = ({ animeId }: { animeId: string }) => {
                 <img
                   src={character.character.images.jpg.image_url}
                   alt={character.character.name}
-                  className="absolute inset-0 h-full w-full object-cover scale-130 group-hover:scale-110 duration-200"
+                  className="absolute inset-0 h-full w-full object-cover scale-120 group-hover:scale-110 duration-200"
                 />
 
                 <div className="absolute inset-0 bg-linear-to-t from-black/75 group-hover:from-black via-black/20 to-transparent pointer-events-none" />

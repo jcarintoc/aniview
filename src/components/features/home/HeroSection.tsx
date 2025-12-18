@@ -8,6 +8,7 @@ import {
   sendYouTubeCommand,
 } from "@/lib/utils/extractUrl";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useNavigate } from "react-router-dom";
 
 const HeroSection = () => {
   const { data: topAnime, isLoading } = useTopAnime({
@@ -16,6 +17,7 @@ const HeroSection = () => {
     type: "tv",
   });
 
+  const navigate = useNavigate();
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
   const [isPlaying, setIsPlaying] = useState<boolean>(true);
   const [isMuted, setIsMuted] = useState<boolean>(true);
@@ -105,11 +107,17 @@ const HeroSection = () => {
         {/* Title and Description */}
         <div className="z-10 absolute bottom-4 left-4 md:bottom-6 md:left-6 xl:bottom-12 xl:left-12 max-w-3/4 xl:max-w-1/3 space-y-2 md:space-y-4">
           <img
+            role="button"
+            onClick={() => navigate(`/anime/${topAnime?.data[0]?.mal_id}`)}
             src={topAnime?.data[0]?.images?.webp?.large_image_url}
             alt={topAnime?.data[0]?.title || "Anime"}
-            className="w-20 md:w-28 xl:w-40 h-full aspect-3/4 object-cover rounded-lg shadow-lg mb-4 xl:mb-8"
+            className="w-20 md:w-28 xl:w-40 h-full aspect-3/4 object-cover rounded-lg shadow-lg mb-4 xl:mb-8 cursor-pointer hover:opacity-80 transition-opacity duration-300"
           />
-          <h1 className="text-xl md:text-3xl xl:text-5xl font-bold">
+          <h1
+            role="button"
+            onClick={() => navigate(`/anime/${topAnime?.data[0]?.mal_id}`)}
+            className="text-xl md:text-3xl xl:text-5xl font-bold cursor-pointer hover:underline duration-300"
+          >
             {topAnime?.data[0]?.title || "Anime"}
           </h1>
           <p className="text-sm md:text-base xl:text-lg line-clamp-3">

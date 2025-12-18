@@ -5,6 +5,7 @@ import { Link } from "lucide-react";
 import { useAnimeEpisodes } from "@/query/useAnime";
 import { ClientPagination } from "@/components/ui/client-pagination";
 import { Skeleton } from "@/components/ui/skeleton";
+import EmptyState from "@/components/empty-state";
 
 const EpisodesTab = ({ animeId }: { animeId: string }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -30,7 +31,7 @@ const EpisodesTab = ({ animeId }: { animeId: string }) => {
   }
 
   if (!episodes || episodes.data.length === 0) {
-    return <div>No episodes found</div>;
+    return <EmptyState className="mt-8" title="No episodes found"/>;
   }
 
   const totalPages = episodes.pagination.last_visible_page;
