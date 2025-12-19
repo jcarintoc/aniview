@@ -46,14 +46,14 @@ const CharactersTab = ({ animeId }: { animeId: string }) => {
   }
 
   return (
-    <div className="p-4 flex sm:flex-row flex-col items-center sm:items-start sm:gap-8">
+    <div className="p-4 flex sm:flex-row flex-col items-center sm:items-start sm:gap-8 w-full">
       <TabsHeader className="sticky top-32">Characters</TabsHeader>
-      <div className="flex-1 flex flex-col gap-6">
+      <div className="flex-1 flex flex-col gap-6 w-full">
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-x-4 gap-y-8 w-full">
           {paginatedCharacters.map((character) => (
             <div
               key={character.character.mal_id}
-              className="flex flex-col gap-2 w-[41vw] sm:w-full"
+              className="flex flex-col gap-2 sm:w-full"
             >
               <div className="relative flex flex-col justify-between overflow-hidden rounded-2xl group border aspect-3/4 p-2 hover:ring-2 ring-primary w-full">
                 <Badge variant={"destructive"} className="z-10 shadow-md">

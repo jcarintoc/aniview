@@ -70,6 +70,7 @@ export interface Aired {
     to: DateProp;
     string: string;
   };
+  string: string;
 }
 
 // Broadcast

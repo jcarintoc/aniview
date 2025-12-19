@@ -3,7 +3,39 @@ import type {
   GetAnimeByIdResponse,
   GetAnimeCharactersResponse,
   GetAnimeEpisodesResponse,
+  GetAllAnimeParams,
+  GetAllAnimeResponse,
 } from "@/type/anime";
+
+export const getAllAnime = async (
+  params?: GetAllAnimeParams
+): Promise<GetAllAnimeResponse> => {
+  // Convert params to API format - genres should be comma-separated string
+  const apiParams: Record<string, unknown> = {};
+  
+  if (params) {
+    Object.entries(params).forEach(([key, value]) => {
+      if (value !== undefined && value !== null) {
+        // Convert genres array to comma-separated string
+        if (key === "genres" && Array.isArray(value)) {
+          if (value.length > 0) {
+            apiParams[key] = value.join(",");
+          }
+        } else {
+          apiParams[key] = value;
+        }
+      }
+    });
+  }
+
+  const response = await api.get<GetAllAnimeResponse>("/anime", { 
+    params: apiParams 
+  });
+  return {
+    pagination: response.data.pagination,
+    data: response.data.data,
+  };
+};
 
 export const getAnimeById = async (
   id: string

@@ -17,13 +17,7 @@ const SeasonNowSection = () => {
         renderItem={(anime) => (
           <AnimeCard
             key={anime.title + anime.year}
-            mal_id={anime.mal_id}
-            anime_title={anime.title}
-            genre={anime.genres[0].name}
-            rating={anime.score}
-            year={anime.year || null}
-            embed_url={anime.trailer.embed_url ?? null}
-            image_url={anime.images.webp.large_image_url}
+            anime={anime}
           />
         )}
         path="/season-now"
