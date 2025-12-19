@@ -94,6 +94,12 @@ export function parseSearchParams(searchParams: URLSearchParams): GetAllAnimePar
     params.end_date = endDate;
   }
 
+  // Search query
+  const q = searchParams.get("q");
+  if (q) {
+    params.q = q;
+  }
+
   return params;
 }
 
@@ -151,6 +157,10 @@ export function paramsToSearchParams(params: GetAllAnimeParams): URLSearchParams
     searchParams.set("end_date", params.end_date);
   }
 
+  if (params.q) {
+    searchParams.set("q", params.q);
+  }
+
   return searchParams;
 }
 
@@ -175,6 +185,7 @@ export function normalizeParams(params?: GetAllAnimeParams): GetAllAnimeParams |
   if (params.sort !== undefined) normalized.sort = params.sort;
   if (params.start_date !== undefined) normalized.start_date = params.start_date;
   if (params.end_date !== undefined) normalized.end_date = params.end_date;
+  if (params.q !== undefined && params.q.trim() !== "") normalized.q = params.q.trim();
   
   // Handle genres array - sort for consistency
   if (params.genres !== undefined && Array.isArray(params.genres) && params.genres.length > 0) {

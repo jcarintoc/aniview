@@ -150,13 +150,6 @@ const CatalogContainer = ({
               {animeData.map((anime) => (
                 <AnimeCard
                   key={anime.mal_id}
-                  // mal_id={anime.mal_id}
-                  // anime_title={anime.title}
-                  // genre={anime.genres[0]?.name || "Unknown"}
-                  // rating={anime.score}
-                  // year={anime.year}
-                  // embed_url={anime.trailer.embed_url}
-                  // image_url={anime.images.webp.large_image_url}
                   anime={anime}
                 />
               ))}

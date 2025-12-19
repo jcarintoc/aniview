@@ -9,11 +9,16 @@ import type { GetAllAnimeParams } from "@/type/anime";
 import { createAnimeQueryKey } from "@/lib/utils/urlParams";
 
 export const useAllAnime = (params?: GetAllAnimeParams) => {
+  // For search queries (with 'q' parameter), use shorter staleTime to prevent showing stale results
+  const isSearchQuery = params?.q !== undefined;
+  
   return useQuery({
     queryKey: createAnimeQueryKey(params),
     queryFn: () => getAllAnime(params),
-    staleTime: 5 * 60 * 1000, // 5 minutes - data is fresh for 5 minutes
+    enabled: params !== undefined,
+    staleTime: isSearchQuery ? 0 : 5 * 60 * 1000, // Search queries are always stale, others are fresh for 5 minutes
     gcTime: 10 * 60 * 1000, // 10 minutes - cache persists for 10 minutes (formerly cacheTime)
+    placeholderData: isSearchQuery ? undefined : undefined, // Don't show placeholder data for search queries
   });
 };
 
