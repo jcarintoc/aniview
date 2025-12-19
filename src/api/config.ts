@@ -6,4 +6,10 @@ const API_URL =
 
 export const api = axios.create({
   baseURL: API_URL,
+  paramsSerializer: {
+    encode: (value: string) => {
+      // Use encodeURIComponent to ensure spaces are encoded as %20 instead of +
+      return encodeURIComponent(value);
+    },
+  },
 });

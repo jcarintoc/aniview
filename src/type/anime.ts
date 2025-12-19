@@ -27,6 +27,7 @@ export interface GetAllAnimeParams {
   sort?: z.infer<typeof sortEnum>;
   start_date?: string;
   end_date?: string;
+  q?: string;
 }
 
 export interface Anime {
