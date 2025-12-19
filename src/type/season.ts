@@ -1,4 +1,4 @@
-import type { Anime } from "./top";
+import type { Anime } from "./anime";
 import type {
   TopAnimeFilter,
   TopAnimeRating,
