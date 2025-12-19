@@ -128,14 +128,14 @@ const AnimeCard = ({
 
           <CardContent className="p-0 space-y-4">
             {/* Score */}
-            <div className="inline-flex items-center gap-1 border-0 px-2.5 py-1 text-sm rounded-sm bg-yellow-300 text-black font-semibold">
+            {/* <div className="inline-flex items-center gap-1 border-0 px-2.5 py-1 text-sm rounded-sm bg-yellow-300 text-black font-semibold">
               <Star strokeWidth={3} className="size-3" />
               <span>{anime.score}</span>
-            </div>
+            </div> */}
 
             {/* Episodes */}
-            <div className="flex gap-2 text-xs font-semibold *:flex *:flex-row *:gap-1 *:items-center *:justify-center *:bg-primary *:rounded-sm *:px-3">
-              <div>
+            <div className="flex gap-2 text-xs font-semibold *:flex *:flex-row *:gap-1 *:items-center *:justify-center *:bg-primary *:rounded-sm *:px-3 *:border *:border-primary">
+              <div className="bg-transparent! border-white!">
                 <Hd className="w-4" />
                 <span className="mt-px">HD</span>
               </div>
