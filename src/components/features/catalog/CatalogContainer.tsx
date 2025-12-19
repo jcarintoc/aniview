@@ -1,5 +1,5 @@
 import { Badge } from "@/components/ui/badge";
-import AnimeCard from "@/components/anime-card";
+import AnimeCard from "@/components/common/anime-card";
 import EmptyState from "@/components/empty-state";
 import { ClientPagination } from "@/components/ui/client-pagination";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -77,7 +77,7 @@ const CatalogContainer = ({
 
   const handleRemoveFilter = (filterValue: string) => {
     const newParams = new URLSearchParams(searchParams);
-    
+
     // Try to remove from different param types
     if (newParams.get("type") === filterValue) {
       newParams.delete("type");
@@ -118,11 +118,14 @@ const CatalogContainer = ({
               {activeFilters.map((filter, index) => (
                 <Badge
                   key={`${filter.value}-${index}`}
-                  
                   className="cursor-pointer pt-1 space-x-2 inline-flex items-start gap-2 group"
                   onClick={() => handleRemoveFilter(filter.value)}
                 >
-                  {filter.label} <X strokeWidth={3} className="size-2 mt-px group-hover:text-destructive" />
+                  {filter.label}{" "}
+                  <X
+                    strokeWidth={3}
+                    className="size-2 mt-px group-hover:text-destructive"
+                  />
                 </Badge>
               ))}
             </div>
@@ -148,10 +151,7 @@ const CatalogContainer = ({
           <>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
               {animeData.map((anime) => (
-                <AnimeCard
-                  key={anime.mal_id}
-                  anime={anime}
-                />
+                <AnimeCard key={anime.mal_id} anime={anime} />
               ))}
             </div>
 

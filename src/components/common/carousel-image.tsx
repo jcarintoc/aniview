@@ -5,12 +5,12 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import ViewMoreButton from "./ui/view-more-button";
+import ViewMoreButton from "../ui/view-more-button";
 import { type LucideIcon } from "lucide-react";
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { useNavigate } from "react-router-dom";
-import { Skeleton } from "./ui/skeleton";
+import { Skeleton } from "../ui/skeleton";
 
 interface CarouselImageProps<T> {
   sectionTitle: string;

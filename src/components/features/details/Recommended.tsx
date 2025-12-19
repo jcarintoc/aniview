@@ -1,5 +1,5 @@
-import AnimeCardRecommended from "@/components/anime-card-recommended";
-import CarouselImage from "@/components/carousel-image";
+import AnimeCardRecommended from "@/components/common/anime-card-recommended";
+import CarouselImage from "@/components/common/carousel-image";
 import { useRecommendedAnime } from "@/query/useRecommended";
 import { ThumbsUp } from "lucide-react";
 

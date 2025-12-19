@@ -4,7 +4,7 @@ import {
   CardFooter,
   CardTitle,
   CardDescription,
-} from "./ui/card";
+} from "../ui/card";
 import {
   HoverCard,
   HoverCardContent,
@@ -25,9 +25,7 @@ interface AnimeCardProps {
   anime: Anime;
 }
 
-const AnimeCard = ({
-  anime,
-}: AnimeCardProps) => {
+const AnimeCard = ({ anime }: AnimeCardProps) => {
   const [isHovered, setIsHovered] = useState<boolean>(false);
   const [shouldLoadVideo, setShouldLoadVideo] = useState<boolean>(false);
   const navigate = useNavigate();

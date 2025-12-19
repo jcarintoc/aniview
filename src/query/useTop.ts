@@ -9,7 +9,9 @@ export const useTopAnime = (params?: GetTopAnimeParams) => {
   });
 };
 
-export const useTopAnimeInfinite = (params?: Omit<GetTopAnimeParams, "page">) => {
+export const useTopAnimeInfinite = (
+  params?: Omit<GetTopAnimeParams, "page">
+) => {
   return useInfiniteQuery({
     queryKey: ["top-anime-infinite", params],
     queryFn: ({ pageParam = 1 }) => getTopAnime({ ...params, page: pageParam }),

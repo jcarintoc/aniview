@@ -1,7 +1,7 @@
-import CarouselImage from "@/components/carousel-image";
+import CarouselImage from "@/components/common/carousel-image";
 import { ChessQueen } from "lucide-react";
 import { useTopAnime } from "@/query/useTop";
-import AnimeCard from "@/components/anime-card";
+import AnimeCard from "@/components/common/anime-card";
 
 const MostPopularSection = () => {
   const { data: topAnime, isLoading } = useTopAnime({
@@ -18,10 +18,7 @@ const MostPopularSection = () => {
         isLoading={isLoading}
         keyExtractor={(item) => item.title}
         renderItem={(anime) => (
-          <AnimeCard
-            key={anime.title + anime.year}
-            anime={anime}
-          />
+          <AnimeCard key={anime.title + anime.year} anime={anime} />
         )}
         path="/most-popular"
       />
