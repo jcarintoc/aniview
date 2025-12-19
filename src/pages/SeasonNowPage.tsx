@@ -1,10 +1,18 @@
+import { useSeasonNowInfinite } from "@/query/useSeason";
+import InfiniteAnimeGrid from "@/components/infinite-anime-grid";
+import type { UseInfiniteQueryResult } from "@tanstack/react-query";
 
 const SeasonNowPage = () => {
-  return (
-    <div>
-      Season Now page
-    </div>
-  )
-}
+  const query = useSeasonNowInfinite({
+    limit: 24,
+  });
 
-export default SeasonNowPage
+  return (
+    <InfiniteAnimeGrid
+      query={query as UseInfiniteQueryResult<unknown>}
+      title="Season Now"
+    />
+  );
+};
+
+export default SeasonNowPage;

@@ -1,11 +1,19 @@
-
+import { useTopAnimeInfinite } from "@/query/useTop";
+import InfiniteAnimeGrid from "@/components/infinite-anime-grid";
+import type { UseInfiniteQueryResult } from "@tanstack/react-query";
 
 const MostPopularPage = () => {
-  return (
-    <div>
-      Most Popular page
-    </div>
-  )
-}
+  const query = useTopAnimeInfinite({
+    filter: "bypopularity",
+    limit: 24,
+  });
 
-export default MostPopularPage
+  return (
+    <InfiniteAnimeGrid
+      query={query as UseInfiniteQueryResult<unknown>}
+      title="Most Popular"
+    />
+  );
+};
+
+export default MostPopularPage;

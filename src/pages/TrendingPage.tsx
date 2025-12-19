@@ -1,11 +1,20 @@
-
+import { useTopAnimeInfinite } from "@/query/useTop";
+import InfiniteAnimeGrid from "@/components/infinite-anime-grid";
+import type { UseInfiniteQueryResult } from "@tanstack/react-query";
 
 const TrendingPage = () => {
-  return (
-    <div>
-      Trending Page
-    </div>
-  )
-}
+  const query = useTopAnimeInfinite({
+    filter: "airing",
+    type: "tv",
+    limit: 24,
+  });
 
-export default TrendingPage
+  return (
+    <InfiniteAnimeGrid
+      query={query as UseInfiniteQueryResult<unknown>}
+      title="Trending"
+    />
+  );
+};
+
+export default TrendingPage;
