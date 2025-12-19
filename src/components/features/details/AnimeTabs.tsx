@@ -1,6 +1,6 @@
 import { lazy, Suspense, useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import type { Anime } from "@/type/top";
+import type { Anime } from "@/type/anime";
 import { Skeleton } from "@/components/ui/skeleton";
 
 // Lazy load tab components - they'll only be loaded when needed
@@ -68,7 +68,11 @@ const AnimeTabs = ({
       <div className="flex items-start justify-center p-4 w-full">
         <TabsList className="font-secondary flex-col sm:flex-row sm:h-auto h-fit w-full sm:w-fit">
           {tabs.map((tab) => (
-            <TabsTrigger key={tab.value} value={tab.value} className="w-full sm:w-fit py-2 sm:py-1 text-base sm:text-sm">
+            <TabsTrigger
+              key={tab.value}
+              value={tab.value}
+              className="w-full sm:w-fit py-2 sm:py-1 text-base sm:text-sm"
+            >
               {tab.label}
             </TabsTrigger>
           ))}

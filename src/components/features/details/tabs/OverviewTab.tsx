@@ -1,6 +1,6 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import TabsHeader from "../TabsHeader";
-import type { Anime } from "@/type/top";
+import type { Anime } from "@/type/anime";
 import EmptyState from "@/components/empty-state";
 
 interface OverviewTabProps {
