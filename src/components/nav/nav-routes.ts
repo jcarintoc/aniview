@@ -8,6 +8,10 @@ export const navRoutes = [
     path: "/catalog",
   },
   {
+    label: "Producers",
+    path: "/producers",
+  },
+  {
     label: "News",
     path: "/news",
   },
