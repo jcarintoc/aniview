@@ -1,4 +1,4 @@
-import { Card, CardTitle } from "./ui/card";
+import { Card, CardTitle } from "../ui/card";
 import { useNavigate } from "react-router-dom";
 import { truncateText } from "@/lib/utils/common";
 
@@ -24,15 +24,25 @@ const AnimeCardRecommended = ({
     >
       <div className="absolute inset-0 group-hover:scale-120 duration-500">
         {image_jpg_url ? (
-          <img src={image_jpg_url} alt={title} className="w-full object-cover"/>
+          <img
+            src={image_jpg_url}
+            alt={title}
+            className="w-full object-cover"
+          />
         ) : (
-          <img src={image_webp_url} alt={title} className="w-full object-cover"/>
+          <img
+            src={image_webp_url}
+            alt={title}
+            className="w-full object-cover"
+          />
         )}
       </div>
 
       <div className="absolute inset-0 bg-linear-to-t from-black via-black/20 to-transparent pointer-events-none" />
 
-      <CardTitle className="z-10 text-sm cursor-pointer">{truncateText(title, 30)}</CardTitle>
+      <CardTitle className="z-10 text-sm cursor-pointer">
+        {truncateText(title, 30)}
+      </CardTitle>
     </Card>
   );
 };
