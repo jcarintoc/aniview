@@ -43,7 +43,7 @@ const CatalogPage = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto mt-16 p-3 sm:p-5">
+    <div className="max-w-7xl mx-auto mt-[4.3rem] sm:mt-16 p-3 sm:p-5">
       <div className="bg-accent/65 rounded-[1.25rem] p-2 flex flex-col md:flex-row gap-2">
         <Sidebar 
           initialParams={apiParams}
