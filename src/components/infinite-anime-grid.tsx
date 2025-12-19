@@ -72,23 +72,18 @@ const InfiniteAnimeGrid = ({
   }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   // Flatten all pages into a single array
-  const allAnime: Anime[] = data?.pages.flatMap((page: PaginatedResponse) => page.data) ?? [];
+  const allAnime: Anime[] =
+    data?.pages.flatMap((page: PaginatedResponse) => page.data) ?? [];
 
   if (isError) {
-    return (
-      <main className="max-w-7xl mx-auto mt-16 p-3 sm:p-5">
-        <h1 className="text-2xl sm:text-3xl font-bold font-secondary mb-8">
-          {title}
-        </h1>
-        <ErrorState refetch={() => refetch()} isFetching={isRefetching} />
-      </main>
-    );
+    return <ErrorState refetch={() => refetch()} isFetching={isRefetching} />;
   }
 
   return (
-    <main className="max-w-7xl mx-auto mt-16 p-3 sm:p-5">
-      <br /><br />
-      <h1 className="text-2xl sm:text-3xl font-bold font-secondary mb-8">
+    <main className="max-w-7xl mx-auto mt-8 p-3 sm:p-5">
+      <br />
+      <br />
+      <h1 className="text-2xl sm:text-3xl font-bold font-secondary mb-4">
         {title}
       </h1>
 
