@@ -5,6 +5,7 @@ import type {
   GetAnimeEpisodesResponse,
   GetAllAnimeParams,
   GetAllAnimeResponse,
+  GetAnimeRelationsResponse,
 } from "@/type/anime";
 
 export const getAllAnime = async (
@@ -12,7 +13,7 @@ export const getAllAnime = async (
 ): Promise<GetAllAnimeResponse> => {
   // Convert params to API format - genres should be comma-separated string
   const apiParams: Record<string, unknown> = {};
-  
+
   if (params) {
     Object.entries(params).forEach(([key, value]) => {
       if (value !== undefined && value !== null) {
@@ -28,8 +29,8 @@ export const getAllAnime = async (
     });
   }
 
-  const response = await api.get<GetAllAnimeResponse>("/anime", { 
-    params: apiParams 
+  const response = await api.get<GetAllAnimeResponse>("/anime", {
+    params: apiParams,
   });
   return {
     pagination: response.data.pagination,
@@ -65,4 +66,19 @@ export const getAnimeEpisodes = async (
     data: response.data.data,
     pagination: response.data.pagination,
   };
+};
+
+export const getAnimeRelations = async (id: string) => {
+  const response = await api.get<GetAnimeRelationsResponse>(
+    `anime/${id}/relations`
+  );
+
+  // this will return the anime relations only
+  // const filteredRelations = response.data.data.map((relation) =>
+  //   relation.entry.filter((item) => item.type === "anime")
+  // );
+
+  // return filteredRelations;
+
+  return response.data.data;
 };

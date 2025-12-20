@@ -89,6 +89,11 @@ export interface Episodes {
   forum_url: string;
 }
 
+export interface Relations {
+  relation: string;
+  entry: MalEntity[];
+}
+
 export interface GetAllAnimeResponse {
   pagination: Pagination;
   data: Anime[];
@@ -108,4 +113,8 @@ export interface GetAnimeEpisodesResponse {
     last_visible_page: number;
     has_next_page: boolean;
   };
+}
+
+export interface GetAnimeRelationsResponse {
+  data: Relations[];
 }

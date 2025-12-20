@@ -4,6 +4,7 @@ import {
   getAnimeCharacters,
   getAnimeEpisodes,
   getAllAnime,
+  getAnimeRelations,
 } from "@/api/anime";
 import type { GetAllAnimeParams } from "@/type/anime";
 import { createAnimeQueryKey } from "@/lib/utils/urlParams";
@@ -11,7 +12,7 @@ import { createAnimeQueryKey } from "@/lib/utils/urlParams";
 export const useAllAnime = (params?: GetAllAnimeParams) => {
   // For search queries (with 'q' parameter), use shorter staleTime to prevent showing stale results
   const isSearchQuery = params?.q !== undefined;
-  
+
   return useQuery({
     queryKey: createAnimeQueryKey(params),
     queryFn: () => getAllAnime(params),
@@ -42,6 +43,14 @@ export const useAnimeEpisodes = (id?: string, page: number = 1) => {
   return useQuery({
     queryKey: ["anime-episodes", id, page],
     queryFn: () => getAnimeEpisodes(id!, page),
+    enabled: !!id,
+  });
+};
+
+export const useAnimeRelations = (id?: string) => {
+  return useQuery({
+    queryKey: ["anime-relations", id],
+    queryFn: () => getAnimeRelations(id!),
     enabled: !!id,
   });
 };
