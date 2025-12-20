@@ -6,8 +6,6 @@ import { ThumbsUp } from "lucide-react";
 const Recommended = ({ id }: { id: string }) => {
   const { data: recommendedAnime, isLoading } = useRecommendedAnime(id);
 
-  console.log(recommendedAnime);
-
   return (
     <section className="max-w-7xl mx-auto p-3 xl:p-0">
       <CarouselImage
