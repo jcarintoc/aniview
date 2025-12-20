@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import type { UseInfiniteQueryResult } from "@tanstack/react-query";
 import ErrorState from "@/components/error-state";
 import type { Pagination } from "@/type/common";
+import { cn } from "@/lib/utils";
 
 // Generic type for API responses with pagination
 interface PaginatedResponse<T> {
@@ -35,7 +36,7 @@ interface InfiniteScrollContainerProps<T> {
 const InfiniteScrollContainer = <T,>({
   query,
   children,
-  className = "max-w-7xl mx-auto mt-20 p-3 sm:p-5",
+  className,
   scrollToTop = true,
 }: InfiniteScrollContainerProps<T>) => {
   const {
@@ -94,7 +95,9 @@ const InfiniteScrollContainer = <T,>({
   }
 
   return (
-    <main className={className}>
+    <main
+      className={cn("max-w-7xl mx-auto mt-20 p-3 sm:p-5 space-y-4", className)}
+    >
       {children({
         items,
         isLoading,
