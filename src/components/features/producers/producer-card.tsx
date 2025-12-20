@@ -62,7 +62,7 @@ const ProducerCard = ({ producer, index }: ProducerCardProps) => {
 
       {/* Content Overlay - Placed at bottom absolute */}
       <div className="absolute inset-x-0 bottom-0 p-4 translate-y-6 group-hover:translate-y-0 transition-transform duration-300">
-        <h3 className="text-sm sm:text-lg font-black text-white leading-tight mb-1 drop-shadow-md hover:underline cursor-pointer">
+        <h3 className="text-sm sm:text-lg font-black text-white leading-tight mb-1 drop-shadow-md">
           {primaryTitle}
         </h3>
 
