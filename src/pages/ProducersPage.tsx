@@ -2,29 +2,8 @@ import { useProducersInfinite } from "@/query/useProducers";
 import { InfiniteScrollContainer, PageHeader } from "@/components/common";
 import ProducerCard from "@/components/features/producers/producer-card";
 import MasonryGrid from "@/components/ui/masonry-grid";
-import { Skeleton } from "@/components/ui/skeleton";
 import type { Producers } from "@/type/producers";
-
-// Custom skeleton for masonry look
-const MasonrySkeletonGrid = ({ count = 12 }: { count?: number }) => {
-  return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-      {Array.from({ length: count }).map((_, i) => (
-        <div key={i} className="flex flex-col gap-4">
-          <Skeleton
-            className={`w-full rounded-xl ${
-              i % 3 === 0
-                ? "aspect-[3/4]"
-                : i % 2 === 0
-                ? "aspect-video"
-                : "aspect-square"
-            }`}
-          />
-        </div>
-      ))}
-    </div>
-  );
-};
+import MasonrySkeletonGrid from "@/components/features/producers/producer-card-skeleton";
 
 const ProducersPage = () => {
   const query = useProducersInfinite({
@@ -41,6 +20,8 @@ const ProducersPage = () => {
             title="Producers & Studios"
             description="Explore anime studios and production companies"
           />
+
+          {/* Filter component using shadcn here, input (search with debounce), select (sort by, order by) */}
 
           {isLoading ? (
             <MasonrySkeletonGrid count={16} />

@@ -32,7 +32,7 @@ const ProducerCard = ({ producer, index }: ProducerCardProps) => {
         className={cn(
           "relative w-full overflow-hidden",
           // Use aspect ratio for base consistency but allow deviation
-          isLarge ? "aspect-square" : isTall ? "aspect-[3/4]" : "aspect-video"
+          isLarge ? "aspect-square" : isTall ? "aspect-3/4" : "aspect-video"
         )}
       >
         {producer.images.jpg.image_url ? (
@@ -49,7 +49,7 @@ const ProducerCard = ({ producer, index }: ProducerCardProps) => {
         )}
 
         {/* Gradient Overlay for Text Readability */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
+        <div className="absolute inset-0 bg-linear-to-t from-black via-black/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
 
         {/* Favorites Badge (Floating) */}
         <div className="absolute top-3 right-3 bg-black/40 backdrop-blur-md border border-white/10 px-2 py-1 rounded-full flex items-center gap-1.5 transition-transform group-hover:scale-105">
