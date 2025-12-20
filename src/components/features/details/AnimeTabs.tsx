@@ -16,6 +16,9 @@ const EpisodesTab = lazy(
 const CastTab = lazy(
   () => import("@/components/features/details/tabs/CastTab")
 );
+const RelationsTab = lazy(
+  () => import("@/components/features/details/tabs/RelationTab")
+);
 
 const tabs = [
   {
@@ -37,6 +40,11 @@ const tabs = [
     label: "Cast",
     value: "cast",
     component: CastTab,
+  },
+  {
+    label: "Relations",
+    value: "relations",
+    component: RelationsTab,
   },
 ];
 
