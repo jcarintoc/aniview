@@ -35,16 +35,12 @@ const CarouselImage = <T,>({
 }: CarouselImageProps<T>) => {
   const navigate = useNavigate();
 
-  if (data && data.length === 0) {
-    return null;
-  }
-
   return (
     <Carousel className="w-full space-y-3">
       <div className="flex items-center justify-between px-2">
         <div className="flex items-center gap-2">
-          {Icon && <Icon className="size-6" />}
-          <h1 className="font-secondary text-lg sm:text-xl">{sectionTitle}</h1>
+          {Icon && <Icon className="size-4 sm:size-6" />}
+          <h1 className="font-secondary text-base sm:text-xl">{sectionTitle}</h1>
         </div>
         {path && (
           <ViewMoreButton onClick={() => navigate(path)}>
