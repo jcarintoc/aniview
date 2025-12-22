@@ -7,9 +7,12 @@ import { Menu } from "lucide-react";
 import NavSheet from "./NavSheet";
 import { Activity, useState, useEffect } from "react";
 import SearchCommand from "./SearchCommand";
+import useScroll from "@/hooks/useScroll";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const isScrolled = useScroll();
 
   // Disable body scroll when search is open
   useEffect(() => {
@@ -35,8 +38,8 @@ const Navbar = () => {
 
   return (
     <>
-      <header className="z-40 fixed top-5 left-1/2 -translate-x-1/2  w-full xl:w-7xl px-5">
-        <div className="flex items-center justify-between gap-4 py-2 px-2 bg-accent/65 backdrop-blur-sm rounded-full shadow-lg">
+      <header className={cn("z-40 fixed top-4 left-1/2 -translate-x-1/2  w-full xl:w-7xl px-3 transition-all duration-300", isScrolled && "px-5")}>
+        <div className={cn("flex items-center justify-between gap-4 py-2 px-2  rounded-full bg-transparent", isScrolled && " bg-accent/65 backdrop-blur-sm shadow-lg")}>
           <div className="flex items-center gap-3 md:gap-8">
             <NavSheet>
               <Button size={"icon"} className="md:hidden rounded-full">
@@ -45,7 +48,7 @@ const Navbar = () => {
             </NavSheet>
             <Link
               to="/"
-              className="font-secondary md:px-4 md:py-2 md:bg-primary md:rounded-full text-sm md:text-base"
+              className="[text-shadow:0_2px_4px_rgba(0,0,0,1)] font-secondary md:px-4 md:py-2 md:bg-primary md:rounded-full text-sm md:text-base"
             >
               AniView
             </Link>
