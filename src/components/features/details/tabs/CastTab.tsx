@@ -48,7 +48,7 @@ const CastTab = ({ animeId }: { animeId: string }) => {
       <div className="space-y-4 w-full">
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 w-full">
           {paginatedStaff.map((staff) => (
-            <HoverCard key={staff.person.mal_id}>
+            <HoverCard closeDelay={0} openDelay={0} key={staff.person.mal_id}>
               <HoverCardTrigger>
                 <div className="relative flex flex-col justify-end overflow-hidden rounded-2xl group border aspect-3/4 p-2 hover:ring-2 ring-primary">
                   <span className="z-10 text-sm font-semibold pl-1 pb-1">
@@ -69,11 +69,32 @@ const CastTab = ({ animeId }: { animeId: string }) => {
                 align="center"
                 side="right"
                 sideOffset={10}
-                className="w-64"
+                className="w-72 p-4 space-y-3 bg-black/35 backdrop-blur-md border-0 shadow-lg"
               >
-                <div className="flex flex-wrap gap-2">
+                <div className="flex items-center gap-3">
+                  <img
+                    src={staff.person.images.jpg.image_url}
+                    alt={staff.person.name}
+                    className="h-12 w-12 rounded-full object-cover ring-2  shadow-sm"
+                  />
+                  <div className="flex flex-col gap-0.5">
+                    <span className="text-sm font-semibold leading-tight">
+                      {staff.person.name}
+                    </span>
+                    <span className="text-xs text-white/75">
+                      Staff roles in this anime
+                    </span>
+                  </div>
+                </div>
+
+                <div className="h-px w-full bg-linear-to-r from-transparent via-white/50 to-transparent" />
+
+                <div className="flex flex-wrap gap-1.5 max-h-40 overflow-y-auto pr-1">
                   {staff.positions.map((position) => (
-                    <Badge key={position} className="text-sm">
+                    <Badge
+                      key={position}
+                      className="text-xs font-medium "
+                    >
                       {position}
                     </Badge>
                   ))}
