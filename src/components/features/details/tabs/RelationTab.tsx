@@ -108,7 +108,7 @@ const RelationTab = ({ animeId }: { animeId: string }) => {
                       }
                       className="absolute -top-4 left-2 group-hover:block hidden"
                     >
-                      {item.type.toUpperCase()}
+                      {item.type.charAt(0).toUpperCase() + item.type.slice(1)}
                     </Badge>
                     <h4>{item.name} </h4>
                   </div>
