@@ -47,8 +47,8 @@ const CarouselImage = <T,>({
         <div className="flex items-center gap-2">
           {isLoading ? (
             <>
-              {Icon && <Skeleton className="size-4 sm:size-6" />}
-              <Skeleton className="w-40 h-8" />
+              <Skeleton className="size-6 sm:size-8" />
+              <Skeleton className="w-28 sm:w-40 h-6 sm:h-8" />
             </>
           ) : (
             <>
