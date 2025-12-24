@@ -11,8 +11,4 @@ export const navRoutes = [
     label: "Producers",
     path: "/producers",
   },
-  {
-    label: "News",
-    path: "/news",
-  },
 ];

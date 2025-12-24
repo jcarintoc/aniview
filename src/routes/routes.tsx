@@ -7,7 +7,6 @@ import { Spinner } from "@/components/ui/spinner";
 const pages = {
   HomePage: lazy(() => import("../pages/HomePage")),
   CatalogPage: lazy(() => import("@/pages/CatalogPage")),
-  News: lazy(() => import("@/pages/News")),
   AnimeDetailsPage: lazy(() => import("@/pages/AnimeDetailsPage")),
   TrendingPage: lazy(() => import("@/pages/TrendingPage")),
   SeasonNowPage: lazy(() => import("@/pages/SeasonNowPage")),
@@ -35,7 +34,6 @@ const withSuspense = (
 const routeConfig = [
   { path: "/", element: pages.HomePage, index: true },
   { path: "/catalog", element: pages.CatalogPage },
-  { path: "/news", element: pages.News },
   { path: "/anime/:id", element: pages.AnimeDetailsPage },
   { path: "/trending", element: pages.TrendingPage },
   { path: "/season-now", element: pages.SeasonNowPage },
