@@ -24,7 +24,7 @@ const ProducerCard = ({ producer, index }: ProducerCardProps) => {
       className={cn(
         "relative overflow-hidden group border-0 bg-transparent rounded-xl transition-all duration-300 hover:shadow-2xl hover:shadow-primary/20 gap-0 p-0",
         // We can add distinct background colors or gradients here
-        "bg-black/20"
+        "bg-black/20",
       )}
     >
       {/* Image / Cover */}
@@ -32,7 +32,7 @@ const ProducerCard = ({ producer, index }: ProducerCardProps) => {
         className={cn(
           "relative w-full overflow-hidden",
           // Use aspect ratio for base consistency but allow deviation
-          isLarge ? "aspect-square" : isTall ? "aspect-3/4" : "aspect-video"
+          isLarge ? "aspect-square" : isTall ? "aspect-3/4" : "aspect-video",
         )}
       >
         {producer.images.jpg.image_url ? (
@@ -52,9 +52,9 @@ const ProducerCard = ({ producer, index }: ProducerCardProps) => {
         <div className="absolute inset-0 bg-linear-to-t from-black via-black/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
 
         {/* Favorites Badge (Floating) */}
-        <div className="absolute top-3 right-3 bg-black/40 backdrop-blur-md border border-white/10 px-2 py-1 rounded-full flex items-center gap-1.5 transition-transform group-hover:scale-105">
-          <Heart className="size-3 text-rose-500 fill-rose-500" />
-          <span className="text-[10px] font-bold text-white">
+        <div className="absolute top-1.5 right-1.5 sm:top-3 sm:right-3 bg-black/40 backdrop-blur-md border border-white/10 px-2 py-1 rounded-full flex items-center gap-1.5 transition-transform group-hover:scale-105">
+          <Heart className="size-2.5 sm:size-3 text-rose-500 fill-rose-500" />
+          <span className="text-[8px] sm:text-[10px] font-bold text-white">
             {producer.favorites.toLocaleString()}
           </span>
         </div>

@@ -51,23 +51,24 @@ const CarouselImage = <T,>({
               <Skeleton className="w-28 sm:w-40 h-6 sm:h-8" />
             </>
           ) : (
-            <>
-              {Icon && <Icon className="size-4 sm:size-6" />}
-              <h1 className="font-secondary text-base sm:text-xl">
-                {sectionTitle}
-              </h1>
-            </>
+            hasData && (
+              <>
+                {Icon && <Icon className="size-4 sm:size-6" />}
+                <h1 className="font-secondary text-base sm:text-xl">
+                  {sectionTitle}
+                </h1>
+              </>
+            )
           )}
         </div>
-        {isLoading ? (
-          path && <Skeleton className="h-6 w-26" />
-        ) : (
-          path && (
-            <ViewMoreButton onClick={() => navigate(path)}>
-              View more
-            </ViewMoreButton>
-          )
-        )}
+        {isLoading
+          ? path && <Skeleton className="h-6 w-26" />
+          : path &&
+            hasData && (
+              <ViewMoreButton onClick={() => navigate(path)}>
+                View more
+              </ViewMoreButton>
+            )}
       </div>
 
       {/* Carousel Content */}
@@ -78,7 +79,7 @@ const CarouselImage = <T,>({
                 key={`skeleton-${index}`}
                 className={cn(
                   "pl-1 basis-1/2 sm:basis-1/3 lg:basis-1/5 xl:basis-1/7",
-                  itemClassName
+                  itemClassName,
                 )}
               >
                 <Skeleton className="aspect-3/4 ml-3 rounded-2xl" />
@@ -90,7 +91,7 @@ const CarouselImage = <T,>({
                 key={keyExtractor ? keyExtractor(item, index) : index}
                 className={cn(
                   "pl-1 basis-1/2 sm:basis-1/3 lg:basis-1/5 xl:basis-1/7",
-                  itemClassName
+                  itemClassName,
                 )}
               >
                 <div className="p-1">{renderItem(item, index)}</div>

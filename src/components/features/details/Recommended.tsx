@@ -4,14 +4,18 @@ import { useRecommendedAnime } from "@/query/useRecommended";
 import { ThumbsUp } from "lucide-react";
 
 const Recommended = ({ id }: { id: string }) => {
-  const { data: recommendedAnime, isLoading } = useRecommendedAnime(id);
+  const { data, isLoading } = useRecommendedAnime(id);
+
+  const recommendedAnime = data?.data ?? [];
+
+  // if (recommendedAnime.length === 0) return null;
 
   return (
     <section className="max-w-7xl mx-auto p-3 xl:p-0">
       <CarouselImage
         sectionTitle="You might also like"
         Icon={ThumbsUp}
-        data={recommendedAnime?.data ?? []}
+        data={recommendedAnime}
         isLoading={isLoading}
         keyExtractor={(item) => item.entry.title}
         renderItem={(anime) => (
