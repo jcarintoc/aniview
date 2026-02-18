@@ -1,9 +1,12 @@
 import type { GetAllAnimeParams } from "@/type/anime";
+import { typeEnum, orderByEnum } from "@/type/enum";
 
 /**
  * Parse URL search params into GetAllAnimeParams
  */
-export function parseSearchParams(searchParams: URLSearchParams): GetAllAnimeParams {
+export function parseSearchParams(
+  searchParams: URLSearchParams,
+): GetAllAnimeParams {
   const params: GetAllAnimeParams = {};
 
   // Page
@@ -26,7 +29,7 @@ export function parseSearchParams(searchParams: URLSearchParams): GetAllAnimePar
 
   // Type
   const type = searchParams.get("type");
-  if (type) {
+  if (type && typeEnum.safeParse(type).success) {
     params.type = type as GetAllAnimeParams["type"];
   }
 
@@ -73,7 +76,7 @@ export function parseSearchParams(searchParams: URLSearchParams): GetAllAnimePar
 
   // Order by
   const orderBy = searchParams.get("order_by");
-  if (orderBy) {
+  if (orderBy && orderByEnum.safeParse(orderBy).success) {
     params.order_by = orderBy as GetAllAnimeParams["order_by"];
   }
 
@@ -106,7 +109,9 @@ export function parseSearchParams(searchParams: URLSearchParams): GetAllAnimePar
 /**
  * Convert GetAllAnimeParams to URLSearchParams
  */
-export function paramsToSearchParams(params: GetAllAnimeParams): URLSearchParams {
+export function paramsToSearchParams(
+  params: GetAllAnimeParams,
+): URLSearchParams {
   const searchParams = new URLSearchParams();
 
   if (params.page) {
@@ -168,7 +173,9 @@ export function paramsToSearchParams(params: GetAllAnimeParams): URLSearchParams
  * Normalize params object for stable query key generation
  * Removes undefined values and sorts keys for consistent serialization
  */
-export function normalizeParams(params?: GetAllAnimeParams): GetAllAnimeParams | undefined {
+export function normalizeParams(
+  params?: GetAllAnimeParams,
+): GetAllAnimeParams | undefined {
   if (!params) return undefined;
 
   const normalized: Record<string, unknown> = {};
@@ -183,22 +190,32 @@ export function normalizeParams(params?: GetAllAnimeParams): GetAllAnimeParams |
   if (params.max_score !== undefined) normalized.max_score = params.max_score;
   if (params.order_by !== undefined) normalized.order_by = params.order_by;
   if (params.sort !== undefined) normalized.sort = params.sort;
-  if (params.start_date !== undefined) normalized.start_date = params.start_date;
+  if (params.start_date !== undefined)
+    normalized.start_date = params.start_date;
   if (params.end_date !== undefined) normalized.end_date = params.end_date;
-  if (params.q !== undefined && params.q.trim() !== "") normalized.q = params.q.trim();
-  
+  if (params.q !== undefined && params.q.trim() !== "")
+    normalized.q = params.q.trim();
+
   // Handle genres array - sort for consistency
-  if (params.genres !== undefined && Array.isArray(params.genres) && params.genres.length > 0) {
+  if (
+    params.genres !== undefined &&
+    Array.isArray(params.genres) &&
+    params.genres.length > 0
+  ) {
     normalized.genres = [...params.genres].sort((a, b) => a - b);
   }
 
-  return Object.keys(normalized).length > 0 ? (normalized as GetAllAnimeParams) : undefined;
+  return Object.keys(normalized).length > 0
+    ? (normalized as GetAllAnimeParams)
+    : undefined;
 }
 
 /**
  * Create a stable query key from params
  * This ensures React Query can properly cache queries with the same parameters
  */
-export function createAnimeQueryKey(params?: GetAllAnimeParams): [string, GetAllAnimeParams | undefined] {
+export function createAnimeQueryKey(
+  params?: GetAllAnimeParams,
+): [string, GetAllAnimeParams | undefined] {
   return ["all-anime", normalizeParams(params)];
 }
