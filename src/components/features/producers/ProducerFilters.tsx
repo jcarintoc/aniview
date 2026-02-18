@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
 import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import Select01 from "@/components/ui/select-01";
 import { useDebounce } from "@/hooks/useDebounce";
+import { useProducerParams } from "@/hooks/useProducerParams";
 
 const ORDER_BY_OPTIONS = [
   { label: "Favorites", value: "favorites" },
@@ -18,37 +18,20 @@ const SORT_OPTIONS = [
 ];
 
 const ProducerFilters = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [searchQuery, setSearchQuery] = useState(searchParams.get("q") || "");
-  const debouncedQuery = useDebounce(searchQuery, 500);
+  const { query, orderBy, sort, setQuery, setOrderBy, setSort } =
+    useProducerParams();
+  const [searchInput, setSearchInput] = useState(query);
+  const debouncedInput = useDebounce(searchInput, 500);
 
-  const orderBy = searchParams.get("order_by") || "favorites";
-  const sort = searchParams.get("sort") || "desc";
-
-  // Update URL when debounced query changes
+  // Sync debounced input → URL (no stale closure — setQuery uses functional updater)
   useEffect(() => {
-    const newParams = new URLSearchParams(searchParams);
+    setQuery(debouncedInput);
+  }, [debouncedInput, setQuery]);
 
-    if (debouncedQuery.trim()) {
-      newParams.set("q", debouncedQuery.trim());
-    } else {
-      newParams.delete("q");
-    }
-
-    setSearchParams(newParams, { replace: true });
-  }, [debouncedQuery, setSearchParams]);
-
-  const handleOrderByChange = (value: string) => {
-    const newParams = new URLSearchParams(searchParams);
-    newParams.set("order_by", value);
-    setSearchParams(newParams, { replace: true });
-  };
-
-  const handleSortChange = (value: string) => {
-    const newParams = new URLSearchParams(searchParams);
-    newParams.set("sort", value);
-    setSearchParams(newParams, { replace: true });
-  };
+  // Sync URL → local input when URL changes externally
+  useEffect(() => {
+    setSearchInput(query);
+  }, [query]);
 
   return (
     <div className="flex flex-col sm:flex-row justify-between gap-3 mb-6">
@@ -58,8 +41,8 @@ const ProducerFilters = () => {
         <Input
           type="text"
           placeholder="Search producers or studios..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
+          value={searchInput}
+          onChange={(e) => setSearchInput(e.target.value)}
           className="pl-9 border-border text-sm w-full"
         />
       </div>
@@ -69,7 +52,7 @@ const ProducerFilters = () => {
         <div className="w-full sm:w-40">
           <Select01
             value={orderBy}
-            onChange={handleOrderByChange}
+            onChange={setOrderBy}
             options={ORDER_BY_OPTIONS}
             placeholder="Sort by..."
             label="Sort By"
@@ -80,7 +63,7 @@ const ProducerFilters = () => {
         <div className="w-full sm:w-40">
           <Select01
             value={sort}
-            onChange={handleSortChange}
+            onChange={setSort}
             options={SORT_OPTIONS}
             placeholder="Order..."
             label="Order"
