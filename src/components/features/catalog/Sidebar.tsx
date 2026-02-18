@@ -33,6 +33,7 @@ import {
 } from "@/type/enum";
 import { scores, RATINGS, STATUS, SORT, TYPES, OrderBy } from "@/lib/data";
 import Select01 from "@/components/ui/select-01";
+import useMobile from "@/hooks/useMobile";
 
 const dateRegex =
   /^(?:\d{4}|\d{4}-(0[1-9]|1[0-2])|\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))$/;
@@ -64,6 +65,16 @@ interface SidebarProps {
 
 const Sidebar = ({ initialParams, onFiltersChange }: SidebarProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(true);
+
+  const isMobile = useMobile(768);
+
+  useEffect(() => {
+    if (isMobile) {
+      setIsOpen(false);
+    } else {
+      setIsOpen(true);
+    }
+  }, [isMobile]);
 
   const handleToggleFilters = () => {
     setIsOpen((prev) => !prev);
@@ -252,8 +263,8 @@ const Sidebar = ({ initialParams, onFiltersChange }: SidebarProps) => {
                                     checked
                                       ? [...current, genre.mal_id]
                                       : current.filter(
-                                          (id) => id !== genre.mal_id
-                                        )
+                                          (id) => id !== genre.mal_id,
+                                        ),
                                   );
                                 }}
                               />
