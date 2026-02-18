@@ -1,73 +1,93 @@
-# React + TypeScript + Vite
+# Aniview
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aniview is a modern, responsive anime discovery platform and catalog application powered by the [Jikan API](https://jikan.moe/). Built with performance and user experience in mind, it allows fans to explore trending series, discover upcoming releases, and dive deep into their favorite anime titles.
 
-Currently, two official plugins are available:
+## ✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Dynamic Homepage**: Explore featured and trending anime at a glance.
+- **Advanced Catalog**: Comprehensive filtering and search capabilities to find exactly what you're looking for.
+- **Detailed Insights**: View synopsis, characters, staff, and recommendations for any anime.
+- **Real-time Categories**:
+  - **Trending**: What's hot in the community right now.
+  - **Season Now**: The latest releases for the current season.
+  - **Most Popular**: All-time fan favorites.
+  - **Top Upcoming**: Stay ahead of the curve with future releases.
+- **Producer Directory**: Browse anime by production studios.
 
-## React Compiler
+## 🛠️ Tech Stack
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+- **Frontend**: [React 19](https://react.dev/)
+- **Build Tool**: [Vite 7](https://vitejs.dev/)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **State Management**: [TanStack Query v5](https://tanstack.com/query/latest) (for efficient server state and caching)
+- **Routing**: [React Router v7](https://reactrouter.com/)
+- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
+- **UI Components**: [Radix UI](https://www.radix-ui.com/)
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **API Client**: [Axios](https://axios-http.com/)
+- **Form Handling**: [React Hook Form](https://react-hook-form.com/) & [Zod](https://zod.dev/)
+- **Carousel**: [Embla Carousel](https://www.embla-carousel.com/)
 
-## Expanding the ESLint configuration
+## 🚀 Getting Started
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Prerequisites
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **Node.js**: v18.0.0 or higher
+- **Package Manager**: npm, yarn, or pnpm
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Installation
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+1.  **Clone the repository**:
+
+    ```bash
+    git clone https://github.com/jcarintoc/aniview.git
+    cd aniview
+    ```
+
+2.  **Install dependencies**:
+
+    ```bash
+    npm install
+    ```
+
+3.  **Environment Setup**:
+    Copy the example environment file and configure your variables:
+    ```bash
+    cp .env.example .env
+    ```
+    Ensure `VITE_API_BASE_URL` is set (e.g., `https://api.jikan.moe`) and `VITE_API_VERSION` is set (e.g., `v4`).
+
+### Running Locally
+
+To start the development server:
+
+```bash
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+The application will be available at `http://localhost:5173`.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Building for Production
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+To create an optimized production build:
+
+```bash
+npm run build
+```
+
+The build output will be in the `dist` directory.
+
+## 📁 Project Structure
+
+```text
+src/
+├── api/        # API configuration and service functions
+├── components/ # Reusable UI components (Radix/Shadcn)
+├── hooks/      # Custom React hooks
+├── layout/     # Page layout structures
+├── lib/        # Shared utilities and configurations
+├── pages/      # Page-level components
+├── query/      # TanStack Query keys and hooks
+├── routes/     # Routing configuration
+└── type/       # TypeScript interfaces and types
 ```
